@@ -16,18 +16,9 @@ class TestController extends Controller
 
     public function userWithoutAnnotateAction(Request $request)
     {
-
-        $collectionConstraint = new Collection(array(
-            'fields' => array(
-                'email' => new Email(),
-                'name' => new Length(15),
-            ),
-            'allowExtraFields' => false));
-        $form = $this->get('form.factory')->createNamedBuilder(null, 'form', array(), array(
-                    'validation_constraint' => $collectionConstraint,
-                ))
-                ->add('email', 'email')
-                ->add('name', 'url')
+        $form = $this->get('form.factory')->createNamedBuilder(null, 'form')
+                ->add('email', 'email', array('constraints' => array(new Email())))
+                ->add('name', 'url', array('constraints' => array(new Length(15))))
                 ->getForm()
         ;
 
@@ -49,21 +40,11 @@ class TestController extends Controller
      */
     public function directProblemAction(Request $request)
     {
-
-        $collectionConstraint = new Collection(array(
-            'fields' => array(
-                'email' => new Email(),
-                'name' => new Length(15),
-            ),
-            'allowExtraFields' => false));
-        $form = $this->get('form.factory')->createNamedBuilder(null, 'form', array(), array(
-                    'validation_constraint' => $collectionConstraint,
-                ))
-                ->add('email', 'email')
-                ->add('name', 'url')
+        $form = $this->get('form.factory')->createNamedBuilder(null, 'form')
+                ->add('email', 'email', array('constraints' => array(new Email())))
+                ->add('name', 'url', array('constraints' => array(new Length(15))))
                 ->getForm()
         ;
-       
 
         // start here
         $form->bind($request);
