@@ -17,18 +17,18 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ProblemListener
 {
-
     private $reader;
 
-    public function __construct(Reader $reader)
+    private $debugMode;
+
+    public function __construct(Reader $reader, $debugMode)
     {
         $this->reader = $reader;
+        $this->debugMode = $debugMode;
     }
-
 
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
-
         $request = $event->getRequest();
         $resource = $event->getControllerResult();
         
@@ -43,7 +43,7 @@ class ProblemListener
         }
 
         $headers = array('Content-type' => 'application/api-problem+json');
-        $response = new ProblemResponse($resource, 400, $headers);
+        $response = new ProblemResponse($resource, 400, $headers, $this->debugMode);
         $event->setResponse($response);
     }
 
