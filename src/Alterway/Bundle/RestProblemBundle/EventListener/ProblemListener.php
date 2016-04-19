@@ -17,7 +17,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ProblemListener
 {
-
     private $reader;
 
     public function __construct(Reader $reader)
@@ -25,14 +24,12 @@ class ProblemListener
         $this->reader = $reader;
     }
 
-
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
-
         $request = $event->getRequest();
         $resource = $event->getControllerResult();
-        
-        if(null ===$request->get('_rest_problem')) {
+
+        if (null === $request->get('_rest_problem')) {
             return;
         }
         if ($request->getRequestFormat() != 'json') {
@@ -51,8 +48,7 @@ class ProblemListener
     {
         return array(
             KernelEvents::CONTROLLER => array('onKernelController', -128),
-            KernelEvents::VIEW => 'onKernelView'
+            KernelEvents::VIEW => 'onKernelView',
         );
     }
-
 }

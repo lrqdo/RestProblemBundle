@@ -3,9 +3,7 @@
 namespace Alterway\Bundle\RestProblemBundle\Features\Context;
 
 use Behat\Behat\Context\BehatContext;
-use Behat\Behat\Context\Step\Given;
 use Behat\Behat\Context\Step\When;
-use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
@@ -16,7 +14,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class FeatureContext extends BehatContext implements KernelAwareInterface
 {
-
     private $response;
 
     /**
@@ -46,7 +43,6 @@ class FeatureContext extends BehatContext implements KernelAwareInterface
      */
     public function iSendARequestToWith($type, $uri, TableNode $post)
     {
-
         $fields = array();
         foreach ($post->getRowsHash() as $key => $val) {
             $fields[$key] = $val;
@@ -63,9 +59,7 @@ class FeatureContext extends BehatContext implements KernelAwareInterface
     public function iSendAGetRequestTo($type, $uri)
     {
         return array(
-            new When(sprintf('I send a %s request to "%s" with:', $type, $uri), new TableNode())
+            new When(sprintf('I send a %s request to "%s" with:', $type, $uri), new TableNode()),
         );
-
     }
-
 }

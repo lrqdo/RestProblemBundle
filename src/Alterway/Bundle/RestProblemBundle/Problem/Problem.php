@@ -11,7 +11,6 @@ namespace Alterway\Bundle\RestProblemBundle\Problem;
 
 class Problem implements ProblemInterface
 {
-
     protected $problemType = 'http://not-specified-yet';
     protected $title;
     protected $detail;
@@ -25,6 +24,7 @@ class Problem implements ProblemInterface
     public function setProblemType($problemType)
     {
         $this->problemType = $problemType;
+
         return $this;
     }
 
@@ -36,6 +36,7 @@ class Problem implements ProblemInterface
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -47,9 +48,10 @@ class Problem implements ProblemInterface
     public function setDetail($detail)
     {
         $this->detail = $detail;
+
         return $this;
     }
-    
+
     public function getHttpStatus()
     {
         return $this->httpStatus;
@@ -58,9 +60,7 @@ class Problem implements ProblemInterface
     public function setHttpStatus($httpStatus)
     {
         $this->httpStatus = $httpStatus;
+
         return $this;
     }
-
-
-
 }

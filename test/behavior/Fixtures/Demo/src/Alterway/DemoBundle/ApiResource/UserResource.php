@@ -6,7 +6,6 @@ use Alterway\Bundle\RestProblemBundle\ApiResource\Resource;
 
 class UserResource extends Resource
 {
-
     public function __construct(\Symfony\Component\HttpFoundation\Request $request, \Alterway\DemoBundle\Entity\User $user)
     {
         parent::__construct($request);
@@ -18,5 +17,4 @@ class UserResource extends Resource
         $this->addLink('next', '/orders?page=2');
         $this->addLink('search', '/orders?id={order_id}');
     }
-
 }

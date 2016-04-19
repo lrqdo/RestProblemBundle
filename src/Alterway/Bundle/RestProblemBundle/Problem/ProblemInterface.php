@@ -16,7 +16,6 @@ namespace Alterway\Bundle\RestProblemBundle\Problem;
  */
 interface ProblemInterface
 {
-
     public function getProblemType();
 
     public function setProblemType($problemType);

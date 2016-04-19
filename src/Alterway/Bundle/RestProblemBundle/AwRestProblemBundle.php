@@ -2,7 +2,6 @@
 
 namespace Alterway\Bundle\RestProblemBundle;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /*
@@ -14,5 +13,4 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AwRestProblemBundle extends Bundle
 {
-
 }
