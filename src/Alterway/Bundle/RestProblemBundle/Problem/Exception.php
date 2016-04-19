@@ -6,11 +6,11 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class Exception extends Problem
 {
-    public function __construct(\Exception $exception, $includeStackTrace = false)
+    public function __construct(\Exception $exception, $isVerbose = false)
     {
         $this->problemType = '/exception';
-        $this->title = $exception->getMessage();
-        $this->detail = $includeStackTrace ? $exception->getTraceAsString() : $exception->getMessage();
+        $this->title = $isVerbose ? $exception->getMessage() : '';
+        $this->detail = $isVerbose ? $exception->getTraceAsString() : '';
 
         switch (true) {
             case $exception instanceof HttpExceptionInterface;
