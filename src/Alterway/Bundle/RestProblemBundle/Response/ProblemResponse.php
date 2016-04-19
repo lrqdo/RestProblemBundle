@@ -14,13 +14,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProblemResponse extends JsonResponse
 {
-
     public function __construct(ProblemInterface $problem, $status = null, $headers = array())
     {
         $datas = array(
-            'problemType' => $problem->getProblemType()
-            , 'title' => $problem->getTitle()
-            , 'detail' => $problem->getDetail()
+            'problemType' => $problem->getProblemType(),
+            'title' => $problem->getTitle(),
+            'detail' => $problem->getDetail(),
         );
 
         if (null === $status) {
@@ -29,5 +28,4 @@ class ProblemResponse extends JsonResponse
 
         parent::__construct($datas, $status, $headers);
     }
-
 }

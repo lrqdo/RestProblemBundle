@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Alterway\Bundle\RestProblemBundle\EventListener;
-
 
 use Alterway\Bundle\RestProblemBundle\Problem\Exception;
 use Alterway\Bundle\RestProblemBundle\Response\ProblemResponse;

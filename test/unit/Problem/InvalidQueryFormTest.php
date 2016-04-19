@@ -8,16 +8,15 @@ use Symfony\Component\Form\FormError;
  */
 class InvalidQueryFormTest extends PHPUnit_Framework_TestCase
 {
-
     public function testDetailsOfInvalidFormAreGiven()
     {
         $form = $this->getMock(FormInterface::class);
         $error = $this->getMockBuilder(FormError::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $error->method('getMessage')->willReturn('an error occured');
-        
+
         $form
                 ->expects($this->once())
                 ->method('getErrors')
@@ -33,11 +32,11 @@ class InvalidQueryFormTest extends PHPUnit_Framework_TestCase
         $expected = array('field1' => 'an error occured');
         $this->assertEquals($expected, $object->getDetail()['errors']);
     }
-    
+
     public function testNoProblemIsFoundWhenFormIsValid()
     {
         $form = $this->getMock(FormInterface::class);
-        
+
         $form
                 ->expects($this->once())
                 ->method('getErrors')

@@ -19,9 +19,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
@@ -34,8 +33,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ->end();
-        
+
         return $treeBuilder;
     }
-
 }

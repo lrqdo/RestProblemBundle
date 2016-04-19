@@ -13,7 +13,6 @@ use Alterway\Bundle\RestProblemBundle\Problem\InvalidQueryForm;
 
 class TestController extends Controller
 {
-
     public function userWithoutAnnotateAction(Request $request)
     {
         $form = $this->get('form.factory')->createNamedBuilder(null, 'form')
@@ -57,5 +56,4 @@ class TestController extends Controller
     {
         throw new \Exception('Something went wrong!');
     }
-
 }
