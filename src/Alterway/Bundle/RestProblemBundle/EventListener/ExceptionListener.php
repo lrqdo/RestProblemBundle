@@ -6,7 +6,6 @@ use Alterway\Bundle\RestProblemBundle\Problem\Exception;
 use Alterway\Bundle\RestProblemBundle\Response\ProblemResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class ExceptionListener
 {
@@ -15,14 +14,14 @@ class ExceptionListener
     /** @var LoggerInterface */
     private $logger;
 
-    public function __construct($debugMode, LoggerInterface $logger = null)
+    public function __construct($debugMode)
     {
         $this->debugMode = $debugMode;
-        if (null !== $logger) {
-            $this->logger = $logger;
-        } else {
-            $this->logger = new NullLogger();
-        }
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     public function onKernelException(GetResponseForExceptionEvent $event)
