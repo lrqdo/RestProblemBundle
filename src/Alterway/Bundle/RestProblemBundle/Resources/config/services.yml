@@ -11,6 +11,8 @@ services:
 
   aw.rest_exception.listener:
     class: %aw.rest_exception.listener.class%
-    arguments: [%kernel.debug%]
+    arguments:
+      - %kernel.debug%
+      - @?logger
     tags:
       - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
