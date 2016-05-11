@@ -27,7 +27,13 @@ class ExceptionListener
         // We render the response here and not in the `onKernelException` method because otherwise
         // Symfony's default exception listener would not run, and the exception would not be logged.
         if (null !== $this->exception) {
-            $event->setResponse(new ProblemResponse(new Exception($this->exception, $this->debugMode)));
+            $event->setResponse(
+                new ProblemResponse(
+                    new Exception($this->exception, $this->debugMode),
+                    null,
+                    $event->getResponse()->headers->all()
+                )
+            );
         }
     }
 }
