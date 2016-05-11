@@ -24,7 +24,7 @@ class ExceptionListener
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        if ($event->getResponse()->isServerError()) {
+        if (null !== $this->exception) {
             $event->setResponse(new ProblemResponse(new Exception($this->exception, $this->debugMode)));
         }
     }
