@@ -14,3 +14,4 @@ services:
     arguments: [%kernel.debug%]
     tags:
       - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
