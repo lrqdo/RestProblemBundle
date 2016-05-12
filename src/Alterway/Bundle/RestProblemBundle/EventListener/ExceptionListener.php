@@ -48,9 +48,8 @@ class ExceptionListener
      *
      * @param \Exception $exception The \Exception instance
      * @param string     $message   The error message to log
-     * @param bool       $original  False when the handling of the exception thrown another exception
      */
-    protected function logException(\Exception $exception, $message, $original = true)
+    protected function logException(\Exception $exception, $message)
     {
         $isCritical = !$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500;
         $context = array('exception' => $exception);
@@ -60,7 +59,7 @@ class ExceptionListener
             } else {
                 $this->logger->error($message, $context);
             }
-        } elseif (!$original || $isCritical) {
+        } elseif ($isCritical) {
             error_log($message);
         }
     }
