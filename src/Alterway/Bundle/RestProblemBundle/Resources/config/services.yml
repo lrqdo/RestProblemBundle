@@ -5,7 +5,7 @@ parameters:
 services:
   aw.rest_problem.listener:
     class: %aw.rest_problem.listener.class%
-    arguments: [@annotation_reader]
+    arguments: ['@annotation_reader']
     tags:
       - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
 
