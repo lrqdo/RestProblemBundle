@@ -4,14 +4,14 @@ parameters:
 
 services:
   aw.rest_problem.listener:
-    class: %aw.rest_problem.listener.class%
+    class: "%aw.rest_problem.listener.class%"
     arguments: ['@annotation_reader']
     tags:
       - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
 
   aw.rest_exception.listener:
-    class: %aw.rest_exception.listener.class%
-    arguments: [%kernel.debug%]
+    class: "%aw.rest_exception.listener.class%"
+    arguments: ["%kernel.debug%"]
     calls:
       - [setLogger, ['@?logger']]
     tags:
