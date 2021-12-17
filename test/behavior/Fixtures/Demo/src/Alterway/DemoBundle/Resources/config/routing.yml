@@ -1,11 +1,11 @@
 demo.direct:
-  pattern:   /user/edit/direct
+  path:   /user/edit/direct
   defaults:  { _controller: AlterwayDemoBundle:Test:directProblem, _format: json }
   
 demo.user:
-  pattern:   /user/edit/{id}
+  path:   /user/edit/{id}
   defaults:  { _controller: AlterwayDemoBundle:Test:userWithoutAnnotate, _format: json }
   
 demo.exception:
-  pattern:   /exception
+  path:   /exception
   defaults:  { _controller: AlterwayDemoBundle:Test:exceptionProblem, _format: json }

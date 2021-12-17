@@ -5,7 +5,8 @@ namespace Alterway\Bundle\RestProblemBundle\EventListener;
 use Alterway\Bundle\RestProblemBundle\Problem\ProblemInterface;
 use Alterway\Bundle\RestProblemBundle\Response\ProblemResponse;
 use Doctrine\Common\Annotations\Reader;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /*
@@ -17,14 +18,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ProblemListener
 {
-    private $reader;
+    private Reader $reader;
 
     public function __construct(Reader $reader)
     {
         $this->reader = $reader;
     }
 
-    public function onKernelView(GetResponseForControllerResultEvent $event)
+    public function onKernelView(ViewEvent $event): void
     {
         $request = $event->getRequest();
         $resource = $event->getControllerResult();
@@ -32,23 +33,23 @@ class ProblemListener
         if (null === $request->get('_rest_problem')) {
             return;
         }
-        if ($request->getRequestFormat() != 'json') {
+        if ($request->getRequestFormat() !== 'json') {
             return;
         }
         if (!$resource instanceof ProblemInterface) {
             return;
         }
 
-        $headers = array('Content-type' => 'application/api-problem+json');
-        $response = new ProblemResponse($resource, 400, $headers);
+        $headers = ['Content-type' => 'application/api-problem+json'];
+        $response = new ProblemResponse($resource, Response::HTTP_BAD_REQUEST, $headers);
         $event->setResponse($response);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return array(
+        return [
             KernelEvents::CONTROLLER => array('onKernelController', -128),
             KernelEvents::VIEW => 'onKernelView',
-        );
+        ];
     }
 }

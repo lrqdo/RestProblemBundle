@@ -2,7 +2,7 @@
 
 use Alterway\Bundle\RestProblemBundle\Problem\Exception;
 
-class ExceptionTest extends \PHPUnit_Framework_TestCase
+class ExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test

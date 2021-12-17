@@ -4,15 +4,15 @@ namespace Alterway\Bundle\RestProblemBundle\EventListener;
 
 use Alterway\Bundle\RestProblemBundle\Problem\Exception;
 use Alterway\Bundle\RestProblemBundle\Response\ProblemResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Psr\Log\LoggerInterface;
 
 class ExceptionListener
 {
-    private $debugMode;
-
-    /** @var LoggerInterface */
-    private $logger;
+    private bool $debugMode;
+    private LoggerInterface $logger;
 
     public function __construct($debugMode)
     {
@@ -24,11 +24,13 @@ class ExceptionListener
         $this->logger = $logger;
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event)
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
-        $this->logException(
+        //var_dump($exception->getCode(), $exception->getMessage());
+
+        /*$this->logException(
             $exception,
             sprintf(
                 'Uncaught PHP Exception %s: "%s" at %s line %s',
@@ -37,22 +39,15 @@ class ExceptionListener
                 $exception->getFile(),
                 $exception->getLine()
             )
-        );
+        );*/
 
         $event->setResponse(new ProblemResponse(new Exception($exception, $this->debugMode)));
     }
 
-    /**
-     * Logs an exception.
-     * Taken from https://github.com/symfony/symfony/blob/d97279e942bf3a135634ad90a32f1d5cd05a22ba/src/Symfony/Component/HttpKernel/EventListener/ExceptionListener.php
-     *
-     * @param \Exception $exception The \Exception instance
-     * @param string     $message   The error message to log
-     */
-    protected function logException(\Exception $exception, $message)
+    protected function logException(\Exception $exception, string $message)
     {
-        $isCritical = !$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500;
-        $context = array('exception' => $exception);
+        $isCritical = !$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR;
+        $context = ['exception' => $exception];
         if (null !== $this->logger) {
             if ($isCritical) {
                 $this->logger->critical($message, $context);

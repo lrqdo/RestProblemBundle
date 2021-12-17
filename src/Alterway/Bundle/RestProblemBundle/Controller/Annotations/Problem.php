@@ -18,12 +18,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
  */
 class Problem extends Annotation implements ConfigurationInterface
 {
-    public function allowArray()
+    public function allowArray(): bool
     {
         return false;
     }
 
-    public function getAliasName()
+    public function getAliasName(): string
     {
         return 'rest_problem';
     }

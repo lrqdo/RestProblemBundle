@@ -29,19 +29,20 @@
         }
     },
     "require": {
-        "php": ">=5.5.0",
-        "symfony/symfony": ">=2.7",
+        "php": "^7.4",
+        "symfony/symfony": "^4.4",
         "sensio/framework-extra-bundle": ">=3.0"
     },
     "require-dev": {
-        "behat/behat": "~2.5",
+        "behat/behat": ">=3.8",
         "kriswallsmith/buzz": ">=0.5",
-        "phpunit/phpunit": "4.8.*",
+        "phpunit/phpunit": "~9.5",
         "behat/symfony2-extension": "*@stable",
         "behat/mink-extension": "*",
         "behat/mink-browserkit-driver": "*",
-        "behat/mink-sahi-driver": "*",
-        "behat/gherkin": "@dev"
+        "behat/gherkin": "@dev",
+        "symfony/web-server-bundle": "^4.4",
+        "monolog/monolog": "^1.25.1"
     },
     "minimum-stability": "stable"
 }
