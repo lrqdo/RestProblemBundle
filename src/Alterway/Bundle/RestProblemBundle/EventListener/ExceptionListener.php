@@ -28,9 +28,7 @@ class ExceptionListener
     {
         $exception = $event->getThrowable();
 
-        //var_dump($exception->getCode(), $exception->getMessage());
-
-        /*$this->logException(
+        $this->logException(
             $exception,
             sprintf(
                 'Uncaught PHP Exception %s: "%s" at %s line %s',
@@ -39,7 +37,7 @@ class ExceptionListener
                 $exception->getFile(),
                 $exception->getLine()
             )
-        );*/
+        );
 
         $event->setResponse(new ProblemResponse(new Exception($exception, $this->debugMode)));
     }
