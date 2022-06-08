@@ -26,7 +26,7 @@ class ExceptionListener
 
     public function onKernelException(ExceptionEvent $event)
     {
-        $exception = $event->getThrowable();
+        $exception = $event->getException();
 
         $this->logException(
             $exception,
