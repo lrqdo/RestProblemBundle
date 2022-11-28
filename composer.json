@@ -30,7 +30,6 @@
     },
     "require": {
         "php": "^7.4",
-        "symfony/symfony": "^4.4",
         "sensio/framework-extra-bundle": ">=3.0"
     },
     "require-dev": {
