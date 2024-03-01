@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Exception extends Problem
 {
-    public function __construct(\Exception $exception, bool $isVerbose = false)
+    public function __construct(\Throwable $exception, bool $isVerbose = false)
     {
         $this->problemType = '/exception';
         $this->title = $isVerbose ? $exception->getMessage() : '';
