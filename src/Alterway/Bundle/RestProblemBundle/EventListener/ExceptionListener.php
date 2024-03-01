@@ -26,7 +26,7 @@ class ExceptionListener
 
     public function onKernelException(ExceptionEvent $event)
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         $this->logException(
             $exception,
@@ -42,7 +42,7 @@ class ExceptionListener
         $event->setResponse(new ProblemResponse(new Exception($exception, $this->debugMode)));
     }
 
-    protected function logException(\Exception $exception, string $message)
+    protected function logException(\Throwable $exception, string $message)
     {
         $isCritical = !$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR;
         $context = ['exception' => $exception];
