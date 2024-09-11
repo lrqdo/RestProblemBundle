@@ -28,6 +28,15 @@ class ExceptionListener
     {
         $exception = $event->getException();
 
+        if (extension_loaded('newrelic')) {
+            $nrException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+            if (!$nrException instanceof HttpExceptionInterface) {
+                newrelic_notice_error($nrException->getMessage(), $nrException);
+                newrelic_add_custom_parameter('file', $nrException->getFile());
+                newrelic_add_custom_parameter('line', $nrException->getLine());
+            }
+        }
+        
         $this->logException(
             $exception,
             sprintf(
