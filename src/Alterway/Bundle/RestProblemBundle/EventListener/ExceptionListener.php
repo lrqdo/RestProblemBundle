@@ -51,10 +51,12 @@ class ExceptionListener
      */
     protected function logException(\Exception $exception, $message)
     {
-        $isCritical = !$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500;
+        $isCritical = $exception->getStatusCode() >= 500;
         $context = array('exception' => $exception);
         if (null !== $this->logger) {
-            if ($isCritical) {
+            if ($exception instanceof HttpExceptionInterface) {
+                $this->logger->info($message, $context);
+            } else if ($isCritical) {
                 $this->logger->critical($message, $context);
             } else {
                 $this->logger->error($message, $context);
