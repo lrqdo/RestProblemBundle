@@ -53,10 +53,13 @@ class ExceptionListener
 
     protected function logException(\Throwable $exception, string $message)
     {
-        $isCritical = !$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR;
+        $isCritical = $exception->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR;
         $context = ['exception' => $exception];
+
         if (null !== $this->logger) {
-            if ($isCritical) {
+            if ($exception instanceof HttpExceptionInterface) {
+                $this->logger->info($message, $context);
+            } else if ($isCritical) {
                 $this->logger->critical($message, $context);
             } else {
                 $this->logger->error($message, $context);
