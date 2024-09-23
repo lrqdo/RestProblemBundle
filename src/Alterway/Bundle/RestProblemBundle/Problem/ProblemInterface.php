@@ -16,19 +16,19 @@ namespace Alterway\Bundle\RestProblemBundle\Problem;
  */
 interface ProblemInterface
 {
-    public function getProblemType();
+    public function getProblemType(): string;
 
-    public function setProblemType($problemType);
+    public function setProblemType(string $problemType);
 
-    public function getTitle();
+    public function getTitle(): string;
 
-    public function setTitle($title);
+    public function setTitle(string $title);
 
-    public function getDetail();
+    public function getDetail(): array;
 
-    public function setDetail($detail);
+    public function setDetail(array $detail);
 
-    public function getHttpStatus();
+    public function getHttpStatus(): int;
 
-    public function setHttpStatus($httpStatus);
+    public function setHttpStatus(int $httpStatus);
 }

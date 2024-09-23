@@ -12,8 +12,8 @@ framework:
     translator: { fallback: fr }
 
 twig:
-    debug: %kernel.debug%
-    strict_variables: %kernel.debug%
+    debug: "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
     cache: false
 
 sensio_framework_extra:
@@ -25,7 +25,7 @@ sensio_framework_extra:
 
 # Assetic Configuration
 #assetic:
-#    debug: %kernel.debug%
+#    debug: "%kernel.debug%"
 #    use_controller: false
 #    filters:
 #        cssrewrite: ~

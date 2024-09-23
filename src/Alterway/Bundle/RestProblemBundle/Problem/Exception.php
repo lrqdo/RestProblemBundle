@@ -3,27 +3,30 @@
 namespace Alterway\Bundle\RestProblemBundle\Problem;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class Exception extends Problem
 {
-    public function __construct(\Exception $exception, $isVerbose = false)
+    public function __construct(\Throwable $exception, bool $isVerbose = false)
     {
         $this->problemType = '/exception';
         $this->title = $isVerbose ? $exception->getMessage() : '';
-        $this->detail = $isVerbose ? $exception->getTraceAsString() : '';
+        $this->detail = $isVerbose ? [
+            'trace' => $exception->getTraceAsString()
+        ] : [];
 
         switch (true) {
             case $exception instanceof HttpExceptionInterface;
                 $this->httpStatus = $exception->getStatusCode();
                 break;
             case $exception instanceof \LogicException:
-                $this->httpStatus = 400;
+                $this->httpStatus = Response::HTTP_BAD_REQUEST;
                 break;
             case $exception instanceof \RuntimeException:
-                $this->httpStatus = 500;
+                $this->httpStatus = Response::HTTP_INTERNAL_SERVER_ERROR;
                 break;
             default:
-                $this->httpStatus = 501;
+                $this->httpStatus = Response::HTTP_NOT_IMPLEMENTED;
         }
     }
 }

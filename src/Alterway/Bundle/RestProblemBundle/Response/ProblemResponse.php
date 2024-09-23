@@ -16,16 +16,16 @@ class ProblemResponse extends JsonResponse
 {
     public function __construct(ProblemInterface $problem, $status = null, $headers = array())
     {
-        $datas = array(
+        $data = [
             'problemType' => $problem->getProblemType(),
             'title' => $problem->getTitle(),
             'detail' => $problem->getDetail(),
-        );
+        ];
 
         if (null === $status) {
             $status = $problem->getHttpStatus();
         }
 
-        parent::__construct($datas, $status, $headers);
+        parent::__construct($data, $status, $headers);
     }
 }

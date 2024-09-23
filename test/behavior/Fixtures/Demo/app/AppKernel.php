@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Alterway\Bundle\RestProblemBundle\AwRestProblemBundle(),
             new Alterway\DemoBundle\AlterwayDemoBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new Symfony\Bundle\WebServerBundle\WebServerBundle(),
             //new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             //new Symfony\Bundle\AsseticBundle\AsseticBundle()
         );

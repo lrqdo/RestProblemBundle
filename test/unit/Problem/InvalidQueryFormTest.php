@@ -6,11 +6,11 @@ use Symfony\Component\Form\FormError;
 /**
  * @covers \Alterway\Bundle\RestProblemBundle\Problem\InvalidQueryForm
  */
-class InvalidQueryFormTest extends PHPUnit_Framework_TestCase
+class InvalidQueryFormTest extends \PHPUnit\Framework\TestCase
 {
     public function testDetailsOfInvalidFormAreGiven()
     {
-        $form = $this->getMock(FormInterface::class);
+        $form = $this->createMock(FormInterface::class);
         $error = $this->getMockBuilder(FormError::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -35,7 +35,7 @@ class InvalidQueryFormTest extends PHPUnit_Framework_TestCase
 
     public function testNoProblemIsFoundWhenFormIsValid()
     {
-        $form = $this->getMock(FormInterface::class);
+        $form = $this->createMock(FormInterface::class);
 
         $form
                 ->expects($this->once())

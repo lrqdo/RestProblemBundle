@@ -3,6 +3,7 @@
 namespace Alterway\Bundle\RestProblemBundle\Problem;
 
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
  * (c) 2013 La Ruche Qui Dit Oui!
@@ -16,21 +17,15 @@ class InvalidQueryForm extends Problem
     public function __construct(FormInterface $form)
     {
         $this->title = 'Invalid query form';
-        $this->detail = array(
+        $this->detail = [
             'errors' => $this->buildErrorsTree($form),
-        );
-        $this->httpStatus = 400;
+        ];
+        $this->httpStatus = Response::HTTP_BAD_REQUEST;
     }
 
-    /**
-     * Recursively builds a tree of form errors (including children errors).
-     * Based on Form::getErrorsAsString() : https://github.com/symfony/Form/blob/master/Form.php#L750
-     *
-     * @param FormInterface $form
-     */
-    private function buildErrorsTree($form)
+    private function buildErrorsTree(FormInterface $form): array
     {
-        $errors = array();
+        $errors = [];
 
         foreach ($form->getErrors() as $key => $error) {
             $errors[$key] = $error->getMessage();
