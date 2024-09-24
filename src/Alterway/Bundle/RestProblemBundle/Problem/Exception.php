@@ -16,11 +16,11 @@ class Exception extends Problem
         ] : [];
 
         switch (true) {
-            case $exception instanceof HttpExceptionInterface;
-                $this->httpStatus = $exception->getStatusCode();
-                break;
             case $exception instanceof \LogicException:
                 $this->httpStatus = Response::HTTP_BAD_REQUEST;
+                break;
+            case $exception instanceof HttpExceptionInterface;
+                $this->httpStatus = $exception->getStatusCode();
                 break;
             case $exception instanceof \RuntimeException:
                 $this->httpStatus = Response::HTTP_INTERNAL_SERVER_ERROR;
