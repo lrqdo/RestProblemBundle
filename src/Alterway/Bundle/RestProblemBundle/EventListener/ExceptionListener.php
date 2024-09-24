@@ -26,16 +26,16 @@ class ExceptionListener
 
     public function onKernelException(ExceptionEvent $event)
     {
+        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
         if (extension_loaded('newrelic')) {
-            $nrException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
-            if (!$nrException instanceof HttpExceptionInterface || $nrException->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR) {
-                newrelic_notice_error($nrException->getMessage(), $nrException);
-                newrelic_add_custom_parameter('file', $nrException->getFile());
-                newrelic_add_custom_parameter('line', $nrException->getLine());
+            if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR) {
+                newrelic_notice_error($exception->getMessage(), $exception);
+                newrelic_add_custom_parameter('file', $exception->getFile());
+                newrelic_add_custom_parameter('line', $exception->getLine());
             }
         }
 
-        $exception = $event->getThrowable();
         $this->logException(
             $exception,
             sprintf(
