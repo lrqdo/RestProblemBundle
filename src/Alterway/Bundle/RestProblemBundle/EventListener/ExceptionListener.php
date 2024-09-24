@@ -59,6 +59,8 @@ class ExceptionListener
         if (null !== $this->logger) {
             if ($exception instanceof HttpExceptionInterface) {
                 $this->logger->info($message, $context);
+            } else if ($exception instanceof \LogicException) {
+                $this->logger->warning($message, $context);
             } else if ($isCritical) {
                 $this->logger->critical($message, $context);
             } else {
