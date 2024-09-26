@@ -29,7 +29,11 @@ class ExceptionListener
         $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
         if (extension_loaded('newrelic')) {
-            if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR) {
+            if (
+                !$exception instanceof LogicException &&
+                !$exception instanceof HttpExceptionInterface &&
+                !$exception instanceof Assert\InvalidArgumentException
+            ) {
                 newrelic_notice_error($exception->getMessage(), $exception);
                 newrelic_add_custom_parameter('file', $exception->getFile());
                 newrelic_add_custom_parameter('line', $exception->getLine());
