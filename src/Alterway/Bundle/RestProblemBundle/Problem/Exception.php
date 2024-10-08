@@ -19,6 +19,9 @@ class Exception extends Problem
             case $exception instanceof HttpExceptionInterface;
                 $this->httpStatus = $exception->getStatusCode();
                 break;
+            case $exception instanceof Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+                $this->httpStatus = Response::HTTP_CONFLICT;
+                break;
             case $exception instanceof \LogicException:
                 $this->httpStatus = Response::HTTP_BAD_REQUEST;
                 break;
