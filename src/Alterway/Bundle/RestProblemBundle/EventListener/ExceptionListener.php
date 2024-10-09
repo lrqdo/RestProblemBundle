@@ -4,6 +4,8 @@ namespace Alterway\Bundle\RestProblemBundle\EventListener;
 
 use Alterway\Bundle\RestProblemBundle\Problem\Exception;
 use Alterway\Bundle\RestProblemBundle\Response\ProblemResponse;
+use Assert\InvalidArgumentException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -30,7 +32,7 @@ class ExceptionListener
 
         if (extension_loaded('newrelic')) {
             if (
-                !$exception instanceof LogicException &&
+                !$exception instanceof \LogicException &&
                 !$exception instanceof HttpExceptionInterface &&
                 !$exception instanceof Assert\InvalidArgumentException &&
                 !$exception instanceof Doctrine\DBAL\Exception\UniqueConstraintViolationException
