@@ -4,6 +4,7 @@ namespace Alterway\Bundle\RestProblemBundle\EventListener;
 
 use Alterway\Bundle\RestProblemBundle\Problem\Exception;
 use Alterway\Bundle\RestProblemBundle\Response\ProblemResponse;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -33,7 +34,7 @@ class ExceptionListener
                 !$exception instanceof LogicException &&
                 !$exception instanceof HttpExceptionInterface &&
                 !$exception instanceof Assert\InvalidArgumentException &&
-                !$exception instanceof Doctrine\DBAL\Exception\UniqueConstraintViolationException
+                !$exception instanceof UniqueConstraintViolationException
             ) {
                 newrelic_notice_error($exception->getMessage(), $exception);
                 newrelic_add_custom_parameter('file', $exception->getFile());
