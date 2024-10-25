@@ -2,6 +2,7 @@
 
 namespace Alterway\Bundle\RestProblemBundle\Problem;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +20,7 @@ class Exception extends Problem
             case $exception instanceof HttpExceptionInterface;
                 $this->httpStatus = $exception->getStatusCode();
                 break;
-            case $exception instanceof Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+            case $exception instanceof UniqueConstraintViolationException;
                 $this->httpStatus = Response::HTTP_CONFLICT;
                 break;
             case $exception instanceof \LogicException:

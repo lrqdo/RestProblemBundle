@@ -35,7 +35,7 @@ class ExceptionListener
                 !$exception instanceof \LogicException &&
                 !$exception instanceof HttpExceptionInterface &&
                 !$exception instanceof Assert\InvalidArgumentException &&
-                !$exception instanceof Doctrine\DBAL\Exception\UniqueConstraintViolationException
+                !$exception instanceof UniqueConstraintViolationException
             ) {
                 newrelic_notice_error($exception->getMessage(), $exception);
                 newrelic_add_custom_parameter('file', $exception->getFile());
